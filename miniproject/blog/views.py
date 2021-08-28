@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Article
 
 
 def home(request):
-    return HttpResponse('<h1>Hello world</h1>')
+    posts = Article.objects.order_by('-created_at')
+    return render(request, 'blog/home.html', {
+        'posts': posts
+    })
 
 
 def test(request):
